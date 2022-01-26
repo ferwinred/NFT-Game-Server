@@ -14,9 +14,8 @@ const UserSchema = new Schema({
         unique: true
     },
     role: {
-        type:String,
-        // type: Schema.ObjectId,
-        // ref: 'Roles',
+        type: Schema.ObjectId,
+        ref: 'Roles',
         required: [true, 'role_Id is required']
     },
     nonce: {

@@ -6,6 +6,10 @@ const QuestionSchema = new Schema({
         ref: 'Game',
         required: [true, 'Game_id is required']
     },
+    question:{
+        type: String,
+        required:[true, 'Question is required']
+    },
     answers: {
         type: [{
             type: String

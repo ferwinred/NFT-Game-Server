@@ -21,12 +21,10 @@ const getUser = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
     try {
-        console.log("llega")
         const user = new User({
             address:req.body.address,
-            role:"estudiante",
-            nonce: Math.floor(Math.random() * (10000000 - 1)) + 1,
-            role:req.body.role        
+            role:req.body.role,
+            nonce: Math.floor(Math.random() * (10000000 - 1)) + 1  
         })
         user.save((err)=>{
             if(err){
@@ -43,9 +41,9 @@ const createUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
     try{
         const { id } = req.params
-        const {address, nonce, role} = req.body;
+        const {address, nonce, role, username, email, rewards, favorite_Player} = req.body;
 
-        User.findByIdAndUpdate(id, {"$set":{address, nonce, role}}, (err, usuario)=>{
+        User.findByIdAndUpdate(id, {"$set":{username, address, email, nonce, role, rewards, favorite_Player}}, (err, usuario)=>{
             if(err){
                 return res.status(404).json(err)
             }else{
