@@ -1,11 +1,12 @@
 const { Schema, model } = require('mongoose');
 
-const AvatarSchema = new Schema({
+const NftsSchema = new Schema({
     rarity: {
-        type: String,
+        type: Schema.ObjectId,
+        ref: 'Rarity',
         required: [true, 'rarity id is required']
     },
-    Token: {
+    token: {
         type: Number,
         required: [true, 'Token is required'],
         unique: true
@@ -21,4 +22,4 @@ const AvatarSchema = new Schema({
 }
 );
 
-module.exports = model('Avatar', AvatarSchema);
+module.exports = model('Nfts', NftsSchema);
