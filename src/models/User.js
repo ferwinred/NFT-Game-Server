@@ -2,8 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const UserSchema = new Schema({
     username: {
-        type: String,
-        required: [true, 'username is required']
+        type: String
     },
     address: {
         type: String,
@@ -12,15 +11,15 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'email is required'],
         unique: true
     },
-    role_id: {
-        type: Schema.ObjectId,
-        ref: 'Roles',
+    role: {
+        type:String,
+        // type: Schema.ObjectId,
+        // ref: 'Roles',
         required: [true, 'role_Id is required']
     },
-    nounce: {
+    nonce: {
         type: Number,
         required: [true, 'nounce is required'],
         unique: true
