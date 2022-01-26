@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         ref: 'Roles',
         required: [true, 'role_Id is required']
     },
-    nounce: {
+    nonce: {
         type: Number,
         required: [true, 'nounce is required'],
         unique: true
