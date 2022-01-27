@@ -1,11 +1,14 @@
 const express = require('express')
-const routes = express.Router()
+const router = express.Router()
 const { getQuestions, getQuestion, createQuestion, updateQuestion, deleteQuestion } = require('../controllers/questions.controllers')
+const { tokenValidate } = require('../middlewares/auth');
 
-routes.get('/', getQuestions)
-routes.get('/:id', getQuestion)
-routes.post('/', createQuestion)
-routes.put('/:id', updateQuestion)
-routes.delete('/:id', deleteQuestion)
+router.use(tokenValidate);
 
-module.exports=routes;
+router.get('/', getQuestions)
+router.get('/:id', getQuestion)
+router.post('/', createQuestion)
+router.put('/:id', updateQuestion)
+router.delete('/:id', deleteQuestion)
+
+module.exports=router;

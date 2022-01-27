@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Role = require('../models/Roles');
+let nonce = Math.floor(Math.random() * (10000000 - 1));
 
 const getUsers = async (req, res, next) => {
     try {
@@ -18,14 +20,24 @@ const getUser = async (req, res, next) => {
         next(err);
     }
 }
-
 const createUser = async (req, res, next) => {
     try {
+        const {address} = req.body;
+    
+        console.log(address)
+
+        const role = await Role.findOne({
+            name: 'user'
+        });
+
+        console.log(role)
+
         const user = new User({
-            address:req.body.address,
-            role:req.body.role,
-            nonce: Math.floor(Math.random() * (10000000 - 1)) + 1  
+            address,
+            role: role._id,
+            nonce
         })
+
         user.save((err)=>{
             if(err){
                 return res.status(400).json(err)
@@ -33,6 +45,7 @@ const createUser = async (req, res, next) => {
                 res.json({mensaje:"Usuario creado con exito"})
             }
         });
+        nonce++
     } catch (err) {
         next(err);
     }
@@ -59,6 +72,7 @@ const deleteUser = async (req, res, next) => {
     try{
         const {id} = req.params
         const result= await User.findByIdAndDelete(id)
+        console.log(result)
         result? res.json({mensaje:`el usuario ${result.address} ha sido eliminado`}):res.status(400).json({mensaje:"No existe el usuario"});
     }catch(err){
         next(err);
