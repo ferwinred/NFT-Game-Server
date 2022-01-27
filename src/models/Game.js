@@ -9,17 +9,21 @@ const GameSchema = new Schema({
     players: {
         type: [
             {
-                type: Schema.ObjectId,
+                type: String,
                 ref: 'User'
             }
-        ],
+        ]
+        // ,
+        // validate:[arrayValidate, "El usuario ya existe"]
     },
     pivate_player: {
         type: [
             {
                 type: String
             }
-        ],
+        ]
+        // ,
+        // validate:[arrayValidate, "El usuario ya existe"]
     },
     rewards: {
         type: Number,
@@ -30,5 +34,17 @@ const GameSchema = new Schema({
     timestamps: true,
 }
 );
+
+// function arrayValidate(data){
+
+//    for(let i=0; i<(data.length-1);i++){
+//        for(let j=(i+1);j<data.length;j++){
+//            if(data[i]===data[j]){
+//                return false
+//            }
+//        }
+//    }
+//    return true
+// }
 
 module.exports = model('Game', GameSchema);
