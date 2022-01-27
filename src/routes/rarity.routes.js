@@ -1,11 +1,14 @@
 const express = require('express')
-const routes = express.Router()
+const router = express.Router()
 const { getRaritys, getRarity, createRarity, updateRarity, deleteRarity } = require('../controllers/rarity.controllers')
+const { tokenValidate, isAdmin } = require('../middlewares/auth');
 
-routes.get('/', getRaritys);
-routes.get('/:id', getRarity);
-routes.post('/', createRarity);
-routes.put('/:id', updateRarity);
-routes.delete('/:id', deleteRarity);
+router.use(tokenValidate);
 
-module.exports=routes;
+router.get('/', getRaritys);
+router.get('/:id', getRarity);
+router.post('/', isAdmin, createRarity);
+router.put('/:id', isAdmin, updateRarity);
+router.delete('/:id', isAdmin, deleteRarity);
+
+module.exports=router;

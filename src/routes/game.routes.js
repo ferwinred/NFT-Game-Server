@@ -1,11 +1,14 @@
 const express = require('express')
-const routes = express.Router()
+const router = express.Router()
 const { getGames, getGame, createGame, updateGame, deleteGame } = require('../controllers/games.controllers')
+const { tokenValidate } = require('../middlewares/auth');
 
-routes.get('/', getGames)
-routes.get('/:id', getGame)
-routes.post('/', createGame)
-routes.put('/:id', updateGame)
-routes.delete('/:id', deleteGame)
+router.use(tokenValidate);
 
-module.exports=routes;
+router.get('/', getGames)
+router.get('/:id', getGame)
+router.post('/', createGame)
+router.put('/:id', updateGame)
+router.delete('/:id', deleteGame)
+
+module.exports=router;
